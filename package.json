@@ -1,0 +1,43 @@
+{
+  "name": "@soos-io/soos-scm-audit",
+  "version": "0.1.0",
+  "description": "SOOS SCM Audit CLI",
+  "main": "bin/index.js",
+  "scripts": {
+    "setup:install": "npm install",
+    "setup:clean-install": "npm ci",
+    "setup:update": "npx npm-check -u",
+    "setup:clean": "npx rimraf node_modules && npx rimraf package-lock.json",
+    "build": "tsc",
+    "build:clean": "npx rimraf build",
+    "format": "prettier ./src --check",
+    "format:fix": "prettier ./src --write",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run format && npm run typecheck && npm outdated",
+    "patch-api-client": "npm version patch --no-git-tag-version && npm run setup:clean && npm install @soos-io/api-client@latest --save-exact && npm install && npm run check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soos-io/soos-scm-audit.git"
+  },
+  "author": "SOOS",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/soos-io/soos-scm-audit/issues"
+  },
+  "homepage": "https://github.com/soos-io/soos-scm-audit#readme",
+  "dependencies": {
+    "@soos-io/api-client": "0.2.23",
+    "argparse": "^2.0.1",
+    "tslib": "^2.6.2"
+  },
+  "devDependencies": {
+    "@types/argparse": "^2.0.11",
+    "@types/node": "^20.10.5",
+    "prettier": "^3.1.1",
+    "typescript": "^5.3.3"
+  },
+  "bin": {
+    "soos-scm-audit": "bin/index.js"
+  }
+}
