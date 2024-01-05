@@ -64,6 +64,29 @@ export interface GitHubRepository {
   deployments_url: string;
 }
 
+export interface Commits {
+  commit: {
+    author: author;
+  };
+}
+
+export interface author {
+  name: string;
+  email: string;
+}
+
+interface ContributingDeveloper {
+  username: string
+  repositories: ContributingDeveloperRepositories[]
+}
+
+interface ContributingDeveloperRepositories {
+  id: number
+  name: string
+  lastCommit: string
+  isPrivate: boolean
+}
+
 const d = new Date();
 d.setDate(d.getDate() - 90);
 export const threeMonthsDate = `${d.getUTCFullYear()}-${
@@ -122,8 +145,8 @@ class GitHubService {
     return repos;
   }
 
-  async getContributorsForRepo(repo: GitHubRepository): Promise<GitHubRepository[]> {
-    const url = `${this.apiURL}/repos/${repo.owner.login}/${repo.name}/commits?per_page=100&since=${threeMonthsDate}`;
+  async getContributorsForRepo(repository: GitHubRepository): Promise<ContributingDeveloper[]> {
+    const url = `${this.apiURL}/repos/${repository.owner.login}/${repository.name}/commits?per_page=100&since=${threeMonthsDate}`;
     soosLogger.verboseDebug(`Fetching GitHub repo contributors from ${url}`);
     const response = await fetch(url, {
       method: "GET",
@@ -136,13 +159,36 @@ class GitHubService {
       throw new Error(`Failed to fetch GitHub repo contributors: ${response.statusText}`);
     }
     soosLogger.verboseDebug(`Fetched GitHub repo contributors from ${url}`);
-    const commits: any[] = await response.json();
-    const contributors: any[] = [];
-    commits.forEach((commit: any) => {
-      if (!contributors.includes(commit.author.login)) {
-        contributors.push(commit.author.login);
+    const commits: Commits[] = await response.json();
+    const contributors: ContributingDeveloper[] = [];
+    commits.forEach(commit => {
+      const username = commit.commit.author;
+      const repo = {
+        id: repository.id,
+        name: repository.name,
+        lastCommit: threeMonthsDate, // TODO - get the last commit date
+        isPrivate: repository.private
+      }
+      const existingContributor = contributors.find(contributor => contributor.username === username.name);
+      if (existingContributor) {
+        existingContributor.repositories.forEach(existingRepo => {
+          if (existingRepo.id === repo.id) {
+            soosLogger.info("Repo already exists in the list")
+            return;
+          }else{
+            existingContributor.repositories.push(repo);
+          }
+        }
+        );
+        
+      } else {
+        contributors.push({
+          username: username.name,
+          repositories: [repo]
+        });
       }
     });
+    
     soosLogger.verboseDebug(`GitHub repo contributors response: ${JSON.stringify(contributors)}`);
     return contributors;
   }
