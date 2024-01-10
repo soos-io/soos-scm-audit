@@ -14,7 +14,8 @@
     "format:fix": "prettier ./src --write",
     "typecheck": "tsc --noEmit",
     "check": "npm run format && npm run typecheck && npm outdated",
-    "patch-api-client": "npm version patch --no-git-tag-version && npm run setup:clean && npm install @soos-io/api-client@latest --save-exact && npm install && npm run check"
+    "patch-api-client": "npm version patch --no-git-tag-version && npm run setup:clean && npm install @soos-io/api-client@latest --save-exact && npm install && npm run check",
+    "link:local": "npm link @soos-io/api-client && npm run build && npm link"
   },
   "repository": {
     "type": "git",
@@ -27,7 +28,7 @@
   },
   "homepage": "https://github.com/soos-io/soos-scm-audit#readme",
   "dependencies": {
-    "@soos-io/api-client": "0.2.23",
+    "@soos-io/api-client": "0.2.29-pre.4",
     "argparse": "^2.0.1",
     "tslib": "^2.6.2"
   },
