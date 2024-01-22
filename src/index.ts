@@ -46,20 +46,18 @@ class SOOSSCMAudit {
     if (this.args.saveResults) {
       contributingDeveloperService.saveResults(contributingDevelopers)
     }
-
   }
 
   static async createAndRun(): Promise<void> {
-    soosLogger.info("Starting SOOS SCA Analysis");
+    soosLogger.info("Starting SOOS SCM Contributor Audit");
     soosLogger.logLineSeparator();
     try {
       const args = this.parseArgs();
       soosLogger.setMinLogLevel(args.logLevel);
       soosLogger.setVerbose(args.verbose);
-      soosLogger.info("Configuration read");
       soosLogger.verboseDebug(
         JSON.stringify(
-          obfuscateProperties(args as unknown as Record<string, unknown>, ["apiKey", "secret", "clientId"]),
+          obfuscateProperties(args as unknown as Record<string, unknown>, ["apiKey", "secret"]),
           null,
           2,
         ),
