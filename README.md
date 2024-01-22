@@ -8,5 +8,29 @@ Use SOOS to scan your software for [vulnerabilities](https://app.soos.io/researc
 
 If you maintain an Open Source project, sign up for the Free as in Beer [SOOS Community Edition](https://soos.io/products/community-edition).
 
-## soos-scm-audit
-NPM package to audit contributing developers on SCM tools.
+## Requirements
+  - [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+  
+## Installation
+
+### Globally
+run `npm i -g @soos-io/soos-scm-audit@latest`
+Then Run `soos-scm-audit` from any terminal and add the parameters you want.
+
+### Locally
+run `npm install --prefix ./soos @soos-io/soos-scm-audit`
+Then run from the same terminal `node ./soos/node_modules/@soos-io/soos-scm-audit/bin/index.js`
+
+## Client Parameters
+
+
+| Argument                | Default                                   | Description                                                                                                                          |
+| ----------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `--apiKey`              |  | SOOS API Key - get yours from [SOOS Integration](https://app.soos.io/integrate/). Uses `SOOS_API_KEY` env value if present.      |
+| `--clientId`            |  | SOOS Client ID - get yours from [SOOS Integration](https://app.soos.io/integrate/). Uses `SOOS_API_CLIENT` env value if present.                                           |                                                                                       |
+| `--logLevel`            | `INFO`                          | Minimum level to show logs: PASS, IGNORE, INFO, WARN, or FAIL.                                                                      |                                                                                                  
+| `--saveResults`         |                                        | Save results to file.
+| `--scmType`         |                                        | Scm Type to use for the audit. Options: GitHub.
+| `--secret`         |                                        | Secret to use for api calls, for example when --scmType=GitHub this needs to have the value of a GPAT.                                                                 |
+| `--organizationName`         |                                        | Organization name to run audit.                                                                     |
+| `--verbose`             | `false`                                   | Enable verbose logging.                                                                                                             |
