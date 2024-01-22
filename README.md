@@ -27,7 +27,7 @@ Then run from the same terminal `node ./soos/node_modules/@soos-io/soos-scm-audi
 | Argument                | Default                                   | Description                                                                                                                          |
 | ----------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | `--apiKey`              |  | SOOS API Key - get yours from [SOOS Integration](https://app.soos.io/integrate/sca). Uses `SOOS_API_KEY` env value if present.      |
-| `--clientId`            |  | SOOS Client ID - get yours from [SOOS Integration](https://app.soos.io/integrate/). Uses `SOOS_API_CLIENT` env value if present.                                           |                                                                                       |
+| `--clientId`            |  | SOOS Client ID - get yours from [SOOS Integration](https://app.soos.io/integrate/sca). Uses `SOOS_API_CLIENT` env value if present.                                           |                                                                                       |
 | `--logLevel` |  | Minimum level to show logs: DEBUG INFO, WARN, FAIL, ERROR. |
 | `--saveResults`         |                                        | Save results to file.
 | `--scmType`         |                                        | Scm Type to use for the audit. Options: GitHub.
