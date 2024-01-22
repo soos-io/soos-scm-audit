@@ -31,6 +31,6 @@ Then run from the same terminal `node ./soos/node_modules/@soos-io/soos-scm-audi
 | `--logLevel` |  | Minimum level to show logs: DEBUG INFO, WARN, FAIL, ERROR. |
 | `--saveResults`         |                                        | Save results to file.
 | `--scmType`         |                                        | Scm Type to use for the audit. Options: GitHub.
-| `--secret`         |                                        | Secret to use for api calls, for example when --scmType=GitHub this needs to have the value of a GPAT.                                                                 |
+| `--secret`         |                                        | Secret to use for api calls, for example when --scmType=GitHub this needs to have the value of a PAT.                                                                 |
 | `--organizationName`         |                                        | Organization name to run audit.                                                                     |
 | `--verbose`             | `false`                                   | Enable verbose logging.                                                                                                             |
