@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/soos-io/soos-scm-audit#readme",
   "dependencies": {
-    "@soos-io/api-client": "0.2.31",
+    "@soos-io/api-client": "0.2.32",
     "argparse": "^2.0.1",
     "tslib": "^2.6.2"
   },
