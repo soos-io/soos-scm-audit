@@ -1,44 +1,52 @@
 #!/usr/bin/env node
 import { version } from "../package.json";
-import { ScanType, ScmType, soosLogger } from "@soos-io/api-client";
+import { ScmType, soosLogger } from "@soos-io/api-client";
 import { exit } from "process";
 import {
   obfuscateProperties,
 } from "@soos-io/api-client/dist/utilities";
-import ContributingDeveloperAuditService from "@soos-io/api-client/dist/services/ContributingDeveloperAuditService/ContributingDeveloperAuditService";
-import AnalysisArgumentParser, { ICommonArguments } from "@soos-io/api-client/dist/services/AnalysisArgumentParser";
+import ContributorAuditService from '@soos-io/api-client/dist/services/ContributorAuditService/ContributorAuditService';
+import ContributorAuditArgumentParser, { ICommonArguments } from "@soos-io/api-client/dist/services/ContributorAuditArgumentParser";
 
 interface SOOSSCMAuditArgs extends ICommonArguments {
-  githubPAT: string;
+  days: number;
+  secret: string;
   saveResults: boolean;
   scmType: ScmType;
+  organizationName: string;
 }
 
 class SOOSSCMAudit { 
   constructor(private args: SOOSSCMAuditArgs) {}
 
   static parseArgs(): SOOSSCMAuditArgs {
-    const analysisArgumentParser = AnalysisArgumentParser.create(ScanType.SCM);
-    analysisArgumentParser.addSCMAuditArguments(
-      version,
+    const contributorAuditArgumentParser = ContributorAuditArgumentParser.create();
+    contributorAuditArgumentParser.addBaseContributorArguments(
+      
     );
 
     soosLogger.info("Parsing arguments");
-    return analysisArgumentParser.parseArguments();
+    return contributorAuditArgumentParser.parseArguments();
   }
 
   async runAudit(): Promise<void> {
-    const contributingDeveloperService = new ContributingDeveloperAuditService(ScmType.GitHub)
+    const contributingDeveloperService = ContributorAuditService.create(this.args.apiKey, this.args.apiURL, this.args.scmType)
     const auditParams = {
-      "githubPAT": this.args.githubPAT,
+      "days": this.args.days,
+      "secret": this.args.secret,
+      "organizationName": this.args.organizationName,
+      "scriptVersion": version,
     };
     soosLogger.info(`Running Contributing Developer audit for ${this.args.scmType}`)
     const contributingDevelopers = await contributingDeveloperService.audit(auditParams)
     soosLogger.info(`Contributing Developers found: ${JSON.stringify(contributingDevelopers, null, 2)}`)
 
+    await contributingDeveloperService.uploadContributorAudits(this.args.clientId, contributingDevelopers);
+
     if (this.args.saveResults) {
       contributingDeveloperService.saveResults(contributingDevelopers)
     }
+
   }
 
   static async createAndRun(): Promise<void> {
@@ -51,7 +59,7 @@ class SOOSSCMAudit {
       soosLogger.info("Configuration read");
       soosLogger.verboseDebug(
         JSON.stringify(
-          obfuscateProperties(args as unknown as Record<string, unknown>, ["apiKey", "githubPAT"]),
+          obfuscateProperties(args as unknown as Record<string, unknown>, ["apiKey", "secret", "clientId"]),
           null,
           2,
         ),

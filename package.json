@@ -1,6 +1,6 @@
 {
   "name": "@soos-io/soos-scm-audit",
-  "version": "0.0.1-pre.1",
+  "version": "0.0.1",
   "description": "SOOS SCM Audit CLI",
   "main": "bin/index.js",
   "scripts": {
@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/soos-io/soos-scm-audit#readme",
   "dependencies": {
-    "@soos-io/api-client": "0.2.29-pre.4",
+    "@soos-io/api-client": "0.2.30",
     "argparse": "^2.0.1",
     "tslib": "^2.6.2"
   },
