@@ -13,7 +13,7 @@ run `npm i -g @soos-io/soos-scm-audit@latest`
 ### Locally
 run `npm install --prefix ./soos @soos-io/soos-scm-audit`
 
-## Run the Script
+## Configure and Run the Script
 NOTE: you can find values for the `--apiKey` and `--clientId` at [app.soos.io](https://app.soos.io/integrate).
 
 ### For GitHub
