@@ -9,25 +9,23 @@ You may choose to install the package globally or locally, if you are unsure, yo
 
 ### Globally
 run `npm i -g @soos-io/soos-scm-audit@latest`
-Then Run `soos-scm-audit` from any terminal and add the parameters you want.
 
 ### Locally
 run `npm install --prefix ./soos @soos-io/soos-scm-audit`
-Then run from the same terminal `node ./soos/node_modules/@soos-io/soos-scm-audit/bin/index.js`
 
-### Run the Script
+## Run the Script
 NOTE: you can find the SOOS `ApiKey` and `ClientId` from [app.soos.io](https://app.soos.io/integrate).
 
-#### For GitHub
+### For GitHub
 1. Generate a GitHub Public Access Token (PAT) for your organization and ensure that it has the full Repository permission set.
 ![image](https://github.com/soos-io/soos-scm-audit/assets/88005582/2aed211f-9407-472b-b14d-412b3a97f699)
 2. Get the SOOS `ApiKey` and `ClientId` as indicated above
 3. Run it:
 
-##### Global Install:
+#### When Installed Globally:
 `soos-scm-audit --apiKey=<API_KEY> --clientId=<CLIENT_ID> --scmType=GitHub --secret=<GITHUB_PAT> --organizationName="<GITHUB_ORG_NAME>"`
 
-##### Local Install:
+#### When Installed Locally:
 `node ./soos/node_modules/@soos-io/soos-scm-audit/bin/index.js --apiKey=<API_KEY> --clientId=<CLIENT_ID> --scmType=GitHub --secret=<GITHUB_PAT> --organizationName="<GITHUB_ORG_NAME>"`
 
 
