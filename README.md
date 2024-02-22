@@ -14,7 +14,7 @@ run `npm i -g @soos-io/soos-scm-audit@latest`
 run `npm install --prefix ./soos @soos-io/soos-scm-audit`
 
 ## Run the Script
-NOTE: you can find the SOOS `ApiKey` and `ClientId` at [app.soos.io](https://app.soos.io/integrate).
+NOTE: you can find values for the `--apiKey` and `--clientId` at [app.soos.io](https://app.soos.io/integrate).
 
 ### For GitHub
 1. Generate a GitHub Public Access Token (PAT) for your organization and ensure that it has the full `repo` permission set.
