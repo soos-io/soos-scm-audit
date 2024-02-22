@@ -18,9 +18,10 @@ NOTE: you can find the SOOS `ApiKey` and `ClientId` from [app.soos.io](https://a
 
 ### For GitHub
 1. Generate a GitHub Public Access Token (PAT) for your organization and ensure that it has the full Repository permission set.
-![image](https://github.com/soos-io/soos-scm-audit/assets/88005582/2aed211f-9407-472b-b14d-412b3a97f699)
-2. Get the SOOS `ApiKey` and `ClientId` as indicated above
-3. Run it:
+![image](https://github.com/soos-io/soos-scm-audit/assets/88005582/4279dc2a-8a96-4e4b-9327-a92b83349313)
+
+2. Get the SOOS `ApiKey` and `ClientId` as indicated above.
+3. Run it
 
 #### When Installed Globally:
 `soos-scm-audit --apiKey=<API_KEY> --clientId=<CLIENT_ID> --scmType=GitHub --secret=<GITHUB_PAT> --organizationName="<GITHUB_ORG_NAME>"`
