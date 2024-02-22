@@ -1,28 +1,35 @@
 # [SOOS](https://soos.io/)
-
-SOOS is an independent software security company, located in Winooski, VT USA, building security software for your team. [SOOS, Software security, simplified](https://soos.io).
-
-Use SOOS to scan your software for [vulnerabilities](https://app.soos.io/research/vulnerabilities) and [open source license](https://app.soos.io/research/licenses) issues with [SOOS Core SCA](https://soos.io/products/sca). [Generate and ingest SBOMs](https://soos.io/products/sbom-manager). [Export reports](https://kb.soos.io/help/soos-reports-for-export) to industry standards. Govern your open source dependencies. Run the [SOOS DAST vulnerability scanner](https://soos.io/products/dast) against your web apps or APIs. [Scan your Docker containers](https://soos.io/products/containers) for vulnerabilities. Check your source code for issues with [SAST Analysis](https://soos.io/products/sast).
-
-[Demo SOOS](https://app.soos.io/demo) or [Register for a Free Trial](https://app.soos.io/register).
-
-If you maintain an Open Source project, sign up for the Free as in Beer [SOOS Community Edition](https://soos.io/products/community-edition).
+The SOOS SCM Audit script should be used to determine the number of contributing developers in your organization.
 
 ## Requirements
   - [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
   
 ## Installation
+You may choose to install the package globally or locally, if you are unsure, you can find out more about installing globally on [npm](https://docs.npmjs.com/downloading-and-installing-packages-globally).
 
 ### Globally
 run `npm i -g @soos-io/soos-scm-audit@latest`
-Then Run `soos-scm-audit` from any terminal and add the parameters you want.
 
 ### Locally
 run `npm install --prefix ./soos @soos-io/soos-scm-audit`
-Then run from the same terminal `node ./soos/node_modules/@soos-io/soos-scm-audit/bin/index.js`
 
-## Client Parameters
+## Configure and Run the Script
+NOTE: you can find values for the `--apiKey` and `--clientId` at [app.soos.io](https://app.soos.io/integrate).
 
+### For GitHub
+1. Generate a GitHub Public Access Token (PAT) for your organization and ensure that it has the full `repo` permission set.
+![image](https://github.com/soos-io/soos-scm-audit/assets/88005582/0a437929-dd75-4a6d-b701-16173435c01d)
+
+2. Plug in the values for `--apiKey`, `--clientId`, `--secret`, and `--organizationName` and run the script.
+
+#### When Installed Globally:
+`soos-scm-audit --apiKey=<API_KEY> --clientId=<CLIENT_ID> --scmType=GitHub --secret=<GITHUB_PAT> --organizationName="<GITHUB_ORG_NAME>"`
+
+#### When Installed Locally:
+`node ./soos/node_modules/@soos-io/soos-scm-audit/bin/index.js --apiKey=<API_KEY> --clientId=<CLIENT_ID> --scmType=GitHub --secret=<GITHUB_PAT> --organizationName="<GITHUB_ORG_NAME>"`
+
+
+## Parameters
 
 | Argument                | Default                                   | Description                                                                                                                          |
 | ----------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
