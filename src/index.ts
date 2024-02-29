@@ -1,6 +1,11 @@
 #!/usr/bin/env node
 import { version } from "../package.json";
-import { soosLogger } from "@soos-io/api-client";
+import {
+  IBitBucketContributorAuditArguments,
+  IGitHubContributorAuditArguments,
+  ScmType,
+  soosLogger,
+} from "@soos-io/api-client";
 import { exit } from "process";
 import { obfuscateProperties } from "@soos-io/api-client/dist/utilities";
 import ContributorAuditService from "@soos-io/api-client/dist/services/ContributorAuditService/ContributorAuditService";
@@ -13,7 +18,6 @@ class SOOSSCMAudit {
 
   static parseArgs(): IContributorAuditArguments {
     const contributorAuditArgumentParser = ContributorAuditArgumentParser.create();
-    contributorAuditArgumentParser.addBaseContributorArguments();
 
     soosLogger.info("Parsing arguments");
     return contributorAuditArgumentParser.parseArguments();
@@ -25,12 +29,30 @@ class SOOSSCMAudit {
       this.args.apiURL,
       this.args.scmType,
     );
-    const auditParams = {
-      days: this.args.days,
-      secret: this.args.secret,
-      organizationName: this.args.organizationName,
-      scriptVersion: version,
-    };
+    let auditParams;
+
+    if (this.args.scmType === ScmType.GitHub) {
+      const githubArgs = this.args as IGitHubContributorAuditArguments;
+      auditParams = {
+        days: this.args.days,
+        scriptVersion: version,
+        organizationName: githubArgs.organizationName,
+        secret: this.args.secret,
+      };
+    } else if (this.args.scmType === ScmType.BitbucketCloud) {
+      const bitbucketCloudArgs = this.args as IBitBucketContributorAuditArguments;
+      auditParams = {
+        days: this.args.days,
+        scriptVersion: version,
+        secret: this.args.secret,
+        username: bitbucketCloudArgs.username,
+        workspace: bitbucketCloudArgs.workspace,
+      };
+    } else {
+      soosLogger.error(`Unsupported SCM type: ${this.args.scmType}`);
+      exit(1);
+    }
+
     soosLogger.info(`Running Contributing Developer audit for ${this.args.scmType}`);
     const contributingDevelopers = await contributingDeveloperService.audit(auditParams);
 

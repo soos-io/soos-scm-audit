@@ -38,6 +38,8 @@ NOTE: you can find values for the `--apiKey` and `--clientId` at [app.soos.io](h
 | `--logLevel` |  | Minimum level to show logs: DEBUG INFO, WARN, FAIL, ERROR. |
 | `--saveResults`         |                                        | Save results to file.
 | `--scmType`         |                                        | Scm Type to use for the audit. Options: GitHub.
-| `--secret`         |                                        | Secret to use for api calls, for example when --scmType=GitHub this needs to have the value of a PAT.                                                                 |
-| `--organizationName`         |                                        | Organization name to run audit.                                                                     |
+| `--secret`         |                                        | Secret to use for api calls, for GitHub it should be a GPAT, and for BitBucketCloud a App Password.                                                                 |
+| `--organizationName`         |                                        | Organization name to run audit for GitHub.                                                                     |
+| `--username`         |                                        | Username where the App password was generated for BitBucketCloud.                                                                     |
+| `--workspace`         |                                        | Workspace name to run audit for BitBucketCloud.                                                                     |
 | `--verbose`             | `false`                                   | Enable verbose logging.                                                                                                             |
