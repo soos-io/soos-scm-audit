@@ -28,6 +28,19 @@ NOTE: you can find values for the `--apiKey` and `--clientId` at [app.soos.io](h
 #### When Installed Locally:
 `node ./soos/node_modules/@soos-io/soos-scm-audit/bin/index.js --apiKey=<API_KEY> --clientId=<CLIENT_ID> --scmType=GitHub --secret=<GITHUB_PAT> --organizationName="<GITHUB_ORG_NAME>"`
 
+### For Bitbucket Cloud
+1. Generate an App Password for your organization and ensure that it has the Read `Repositories` permission set.
+![image](https://github.com/soos-io/soos-scm-audit/assets/92373106/7a2016d9-2dc2-45d2-9489-7fc78adaecfb)
+
+
+2. Plug in the values for `--apiKey`, `--clientId`, `--secret`, and `--workspace`, and `--username` and run the script.
+
+#### When Installed Globally:
+`soos-scm-audit --apiKey=<API_KEY> --clientId=<CLIENT_ID> --scmType=BitbucketCloud --secret=<APP_PASSWORD> --workspace="<BITBUCKET_WORKSPACE>" --username="<BITBUCKET_USERNAME>"`
+
+#### When Installed Locally:
+`node ./soos/node_modules/@soos-io/soos-scm-audit/bin/index.js --apiKey=<API_KEY> --clientId=<CLIENT_ID> --scmType=BitbucketCloud --secret=<APP_PASSWORD> --workspace="<BITBUCKET_WORKSPACE>" --username="<BITBUCKET_USERNAME>"`
+
 
 ## Parameters
 
