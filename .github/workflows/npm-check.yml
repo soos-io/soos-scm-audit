@@ -1,4 +1,4 @@
-name: Npm - Verify and Test
+name: Npm run check
 
 on:
   push:
