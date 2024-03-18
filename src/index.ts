@@ -61,9 +61,7 @@ class SOOSSCMAudit {
       contributingDevelopers,
     );
 
-    if (this.args.saveResults) {
-      contributingDeveloperService.saveResults(contributingDevelopers, this.args.saveResults);
-    }
+    contributingDeveloperService.saveResults(contributingDevelopers, this.args.saveResults);
   }
 
   static async createAndRun(): Promise<void> {
