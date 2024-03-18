@@ -62,7 +62,7 @@ class SOOSSCMAudit {
     );
 
     if (this.args.saveResults) {
-      contributingDeveloperService.saveResults(contributingDevelopers);
+      contributingDeveloperService.saveResults(contributingDevelopers, this.args.saveResults);
     }
   }
 
