@@ -70,8 +70,7 @@ class SOOSSCMAudit {
     try {
       const args = this.parseArgs();
       soosLogger.setMinLogLevel(args.logLevel);
-      soosLogger.setVerbose(args.verbose);
-      soosLogger.verboseDebug(
+      soosLogger.debug(
         JSON.stringify(
           obfuscateProperties(args as unknown as Record<string, unknown>, ["apiKey", "secret"]),
           null,

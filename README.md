@@ -51,7 +51,6 @@ NOTE: you can find values for the `--apiKey` and `--clientId` at [app.soos.io](h
 | --logLevel             |         | Minimum level to show logs: DEBUG, INFO, WARN, FAIL, ERROR. |
 | --saveResults          |         | Save results to file.                                    |
 | --scmType              |         | Scm Type to use for the audit. Options: GitHub, BitBucketCloud          |
-| --verbose              | false   | Enable verbose logging.                                  |
 
 | BitBucket Cloud Parameters | Default | Description                                              |
 |----------------------------|---------|----------------------------------------------------------|
