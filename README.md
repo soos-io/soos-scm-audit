@@ -6,15 +6,9 @@ The SOOS SCM Audit script should be used to determine the number of contributing
 [![Out Of Date Dependencies](https://img.shields.io/endpoint?url=https%3A%2F%2Fapi-hooks.soos.io%2Fapi%2Fshieldsio-badges%3FbadgeType%3DOutOfDateDependencies%26pid%3Dzau3ko1vn%26branchName%3Dmain)](https://app.soos.io)
 
 ## Requirements
-  - [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+  - [Node 20 LTS](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
   
 ## Installation
-You may choose to install the package globally or locally, if you are unsure, you can find out more about installing globally on [npm](https://docs.npmjs.com/downloading-and-installing-packages-globally).
-
-### Globally
-run `npm i -g @soos-io/soos-scm-audit@latest`
-
-### Locally
 run `npm install --prefix ./soos @soos-io/soos-scm-audit`
 
 ## Configure and Run the Script
@@ -26,10 +20,7 @@ NOTE: you can find values for the `--apiKey` and `--clientId` at [app.soos.io](h
 
 2. Plug in the values for `--apiKey`, `--clientId`, `--secret`, and `--organizationName` and run the script.
 
-#### When Installed Globally:
-`soos-scm-audit --apiKey=<API_KEY> --clientId=<CLIENT_ID> --scmType=GitHub --secret=<GITHUB_PAT> --organizationName="<GITHUB_ORG_NAME>"`
-
-#### When Installed Locally:
+3. Run
 `node ./soos/node_modules/@soos-io/soos-scm-audit/bin/index.js --apiKey=<API_KEY> --clientId=<CLIENT_ID> --scmType=GitHub --secret=<GITHUB_PAT> --organizationName="<GITHUB_ORG_NAME>"`
 
 ### For Bitbucket Cloud
@@ -39,10 +30,7 @@ NOTE: you can find values for the `--apiKey` and `--clientId` at [app.soos.io](h
 
 2. Plug in the values for `--apiKey`, `--clientId`, `--secret`, and `--workspace`, and `--username` and run the script.
 
-#### When Installed Globally:
-`soos-scm-audit --apiKey=<API_KEY> --clientId=<CLIENT_ID> --scmType=BitbucketCloud --secret=<APP_PASSWORD> --workspace="<BITBUCKET_WORKSPACE>" --username="<BITBUCKET_USERNAME>"`
-
-#### When Installed Locally:
+3. Run
 `node ./soos/node_modules/@soos-io/soos-scm-audit/bin/index.js --apiKey=<API_KEY> --clientId=<CLIENT_ID> --scmType=BitbucketCloud --secret=<APP_PASSWORD> --workspace="<BITBUCKET_WORKSPACE>" --username="<BITBUCKET_USERNAME>"`
 
 
