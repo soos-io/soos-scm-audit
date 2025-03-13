@@ -1,17 +1,14 @@
 #!/usr/bin/env node
 import { version } from "../package.json";
-import {
-  IBitBucketContributorAuditArguments,
-  IGitHubContributorAuditArguments,
-  ScmType,
-  soosLogger,
-} from "@soos-io/api-client";
+import { soosLogger } from "@soos-io/api-client";
 import { exit } from "process";
 import { obfuscateProperties } from "@soos-io/api-client/dist/utilities";
-import ContributorAuditService from "@soos-io/api-client/dist/services/ContributorAuditService/ContributorAuditService";
 import ContributorAuditArgumentParser, {
   IContributorAuditArguments,
-} from "@soos-io/api-client/dist/services/ContributorAuditArgumentParser";
+} from "./services/ContributorAuditArgumentParser";
+import { IBitBucketContributorAuditArguments, IGitHubContributorAuditArguments } from "./services";
+import ContributorAuditService from "./services/ContributorAuditService/ContributorAuditService";
+import { ScmType } from "./enums";
 
 class SOOSSCMAudit {
   constructor(private args: IContributorAuditArguments) {}
