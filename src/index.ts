@@ -17,7 +17,7 @@ class SOOSSCMAudit {
     const contributorAuditArgumentParser = ContributorAuditArgumentParser.create();
 
     soosLogger.info("Parsing arguments");
-    return contributorAuditArgumentParser.parseArguments();
+    return contributorAuditArgumentParser.parseArguments<IContributorAuditArguments>(process.argv);
   }
 
   async runAudit(): Promise<void> {

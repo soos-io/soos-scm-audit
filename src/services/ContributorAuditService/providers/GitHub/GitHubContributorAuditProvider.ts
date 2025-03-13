@@ -2,13 +2,14 @@ import { IContributorAuditProvider } from "../../ContributorAuditService";
 import { DataMappingUtilities, ParamUtilities } from "../../utilities";
 import GitHubApiClient, { GitHubRepository } from "./GitHubApiClient";
 import { SOOS_GITHUB_CONTRIBUTOR_AUDIT_CONSTANTS } from "./constants";
-import { IContributorAuditArguments } from "../../../ContributorAuditArgumentParser";
+import ContributorAuditArgumentParser, {
+  IContributorAuditArguments,
+} from "../../../ContributorAuditArgumentParser";
 import {
   IContributorAuditModel,
   IContributorAuditRepositories,
 } from "@soos-io/api-client/dist/api/SOOSHooksApiClient";
 import { soosLogger } from "@soos-io/api-client";
-import { Command } from "commander";
 
 interface IGitHubContributorAuditArguments extends IContributorAuditArguments {
   organizationName: string;
@@ -51,9 +52,15 @@ class GitHubContributorAuditProvider implements IContributorAuditProvider {
     return finalContributors;
   }
 
-  public static addProviderArgs(argumentParser: Command): void {
-    argumentParser.requiredOption("--organizationName", "Organization name to use for the audit.");
-    argumentParser.requiredOption("--secret", "Secret to use for api calls, it should be a GPAT.");
+  public static addProviderArgs(argumentParser: ContributorAuditArgumentParser): void {
+    argumentParser.addRequiredArgument(
+      "--organizationName",
+      "Organization name to use for the audit.",
+    );
+    argumentParser.addRequiredArgument(
+      "--secret",
+      "Secret to use for api calls, it should be a GPAT.",
+    );
   }
 
   private async getGitHubRepositoryContributors(

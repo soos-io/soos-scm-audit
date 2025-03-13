@@ -2,7 +2,7 @@ import GitHubContributorAuditProvider from "./ContributorAuditService/providers/
 import BitbucketCloudContributorAuditProvider from "./ContributorAuditService/providers/BitbucketCloud/BitbucketCloudContributorAuditProvider";
 import { ArgumentParserBase, ICommonArguments } from "@soos-io/api-client";
 import { ScmResultsFormat, ScmType } from "../enums";
-import { Command, OptionValues, program } from "commander";
+import { InvalidArgumentError, OptionValues } from "commander";
 import { SOOS_SCM_AUDIT_CONSTANTS } from "../constants";
 
 interface IContributorAuditArguments extends ICommonArguments {
@@ -13,27 +13,26 @@ interface IContributorAuditArguments extends ICommonArguments {
 }
 
 class ContributorAuditArgumentParser extends ArgumentParserBase {
-  constructor(argumentParser: Command) {
-    super(argumentParser);
+  constructor(description: string) {
+    super(description);
   }
 
   static create(): ContributorAuditArgumentParser {
-    const parser = program.description("SOOS SCM Audit");
-    return new ContributorAuditArgumentParser(parser);
+    return new ContributorAuditArgumentParser("SOOS SCM Audit");
   }
 
   addBaseContributorArguments() {
-    this.argumentParser.option(
+    this.addArgument(
       "--days",
       "Number of days to look back for commits.",
+      SOOS_SCM_AUDIT_CONSTANTS.Parameters.DefaultDaysAgo,
       (value: string) => {
         const parsedValue = parseInt(value, 10);
         if (isNaN(parsedValue) || parsedValue <= 0) {
-          throw new Error(`Invalid value for days: ${value}`);
+          throw new InvalidArgumentError(`Invalid value for days: ${value}`);
         }
         return parsedValue;
       },
-      SOOS_SCM_AUDIT_CONSTANTS.Parameters.DefaultDaysAgo,
     );
 
     this.addEnumArgument(
@@ -51,27 +50,22 @@ class ContributorAuditArgumentParser extends ArgumentParserBase {
     );
   }
 
-  parseArguments<T extends OptionValues>() {
-    this.addCommonArguments();
+  override parseArguments<T extends OptionValues>(argv?: string[]) {
     this.addBaseContributorArguments();
 
-    this.argumentParser.parse();
-    const preProviderArgs = this.argumentParser.opts<T>();
-
-    switch (preProviderArgs.scmType) {
+    const args = super.parseArguments(argv);
+    switch (args.scmType) {
       case ScmType.GitHub:
-        GitHubContributorAuditProvider.addProviderArgs(this.argumentParser);
+        GitHubContributorAuditProvider.addProviderArgs(this);
         break;
       case ScmType.BitbucketCloud:
-        BitbucketCloudContributorAuditProvider.addProviderArgs(this.argumentParser);
+        BitbucketCloudContributorAuditProvider.addProviderArgs(this);
         break;
       default:
-        throw new Error("Unsupported scmType");
+        throw new Error("Unsupported scmType: " + args.scmType);
     }
 
-    this.argumentParser.parse();
-    const args = this.argumentParser.opts<T>();
-    return args;
+    return super.parseArguments<T>(argv);
   }
 }
 

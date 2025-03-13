@@ -2,13 +2,14 @@ import { IContributorAuditProvider } from "../../ContributorAuditService";
 import { DataMappingUtilities, ParamUtilities } from "../../utilities";
 import BitbucketCloudApiClient, { BitbucketCloudRepository } from "./BitbucketCloudApiClient";
 import { SOOS_BITBUCKET_CLOUD_CONTRIBUTOR_AUDIT_CONSTANTS } from "./constants";
-import { IContributorAuditArguments } from "../../../ContributorAuditArgumentParser";
+import ContributorAuditArgumentParser, {
+  IContributorAuditArguments,
+} from "../../../ContributorAuditArgumentParser";
 import {
   IContributorAuditModel,
   IContributorAuditRepositories,
 } from "@soos-io/api-client/dist/api/SOOSHooksApiClient";
 import { soosLogger } from "@soos-io/api-client";
-import { Command } from "commander";
 
 interface IBitBucketContributorAuditArguments extends IContributorAuditArguments {
   username: string;
@@ -45,13 +46,13 @@ class BitbucketCloudContributorAuditProvider implements IContributorAuditProvide
     return finalContributors;
   }
 
-  public static addProviderArgs(argumentParser: Command): void {
-    argumentParser.requiredOption("--workspace", "Organization name to use for the audit.");
-    argumentParser.requiredOption(
+  public static addProviderArgs(argumentParser: ContributorAuditArgumentParser): void {
+    argumentParser.addRequiredArgument("--workspace", "Organization name to use for the audit.");
+    argumentParser.addRequiredArgument(
       "--secret",
       "Secret to use for api calls, it should be an app password.",
     );
-    argumentParser.requiredOption("--username", "Username for audit.");
+    argumentParser.addRequiredArgument("--username", "Username for audit.");
   }
 
   private async getBitbucketCloudRepositoryContributors(
