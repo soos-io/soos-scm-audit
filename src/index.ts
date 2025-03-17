@@ -10,15 +10,8 @@ import { IBitBucketContributorAuditArguments, IGitHubContributorAuditArguments }
 import ContributorAuditService from "./services/ContributorAuditService/ContributorAuditService";
 import { ScmType } from "./enums";
 
-class SOOSSCMAudit {
+class SOOSContributorAudit {
   constructor(private args: IContributorAuditArguments) {}
-
-  static parseArgs(): IContributorAuditArguments {
-    const contributorAuditArgumentParser = ContributorAuditArgumentParser.create();
-
-    soosLogger.info("Parsing arguments");
-    return contributorAuditArgumentParser.parseArguments<IContributorAuditArguments>(process.argv);
-  }
 
   async runAudit(): Promise<void> {
     const contributingDeveloperService = ContributorAuditService.create(
@@ -65,7 +58,10 @@ class SOOSSCMAudit {
     soosLogger.info("Starting SOOS SCM Contributor Audit");
     soosLogger.logLineSeparator();
     try {
-      const args = this.parseArgs();
+      const contributorAuditArgumentParser = ContributorAuditArgumentParser.create();
+      const args = contributorAuditArgumentParser.parseArguments<IContributorAuditArguments>(
+        process.argv,
+      );
       soosLogger.setMinLogLevel(args.logLevel);
       soosLogger.debug(
         JSON.stringify(
@@ -75,8 +71,8 @@ class SOOSSCMAudit {
         ),
       );
       soosLogger.logLineSeparator();
-      const soosSCMAudit = new SOOSSCMAudit(args);
-      await soosSCMAudit.runAudit();
+      const soosContributorAudit = new SOOSContributorAudit(args);
+      await soosContributorAudit.runAudit();
     } catch (error) {
       soosLogger.error(`Error on createAndRun: ${error}`);
       exit(1);
@@ -84,4 +80,4 @@ class SOOSSCMAudit {
   }
 }
 
-SOOSSCMAudit.createAndRun();
+SOOSContributorAudit.createAndRun();
