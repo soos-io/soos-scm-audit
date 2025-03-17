@@ -47,12 +47,15 @@ class BitbucketCloudContributorAuditProvider implements IContributorAuditProvide
   }
 
   public static addProviderArgs(argumentParser: ContributorAuditArgumentParser): void {
-    argumentParser.addRequiredArgument("--workspace", "Organization name to use for the audit.");
-    argumentParser.addRequiredArgument(
+    argumentParser.addArgument("--workspace", "Organization name to use for the audit.", {
+      required: true,
+    });
+    argumentParser.addArgument(
       "--secret",
       "Secret to use for api calls, it should be an app password.",
+      { required: true },
     );
-    argumentParser.addRequiredArgument("--username", "Username for audit.");
+    argumentParser.addArgument("--username", "Username for audit.", { required: true });
   }
 
   private async getBitbucketCloudRepositoryContributors(

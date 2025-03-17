@@ -15,6 +15,7 @@ interface IContributorAuditArguments extends ICommonArguments {
 class ContributorAuditArgumentParser extends ArgumentParserBase {
   constructor(description: string) {
     super(description);
+    this.addBaseContributorArguments();
   }
 
   static create(): ContributorAuditArgumentParser {
@@ -22,37 +23,37 @@ class ContributorAuditArgumentParser extends ArgumentParserBase {
   }
 
   addBaseContributorArguments() {
-    this.addArgument(
-      "--days",
-      "Number of days to look back for commits.",
-      SOOS_SCM_AUDIT_CONSTANTS.Parameters.DefaultDaysAgo,
-      (value: string) => {
+    this.addArgument("--days", "Number of days to look back for commits.", {
+      defaultValue: SOOS_SCM_AUDIT_CONSTANTS.Parameters.DefaultDaysAgo,
+      argParser: (value: string) => {
         const parsedValue = parseInt(value, 10);
         if (isNaN(parsedValue) || parsedValue <= 0) {
           throw new InvalidArgumentError(`Invalid value for days: ${value}`);
         }
         return parsedValue;
       },
-    );
+    });
 
     this.addEnumArgument(
       "--saveResults",
       ScmResultsFormat,
       "Save results to file, options available: JSON, TXT.",
-      ScmResultsFormat.TXT,
+      {
+        defaultValue: ScmResultsFormat.TXT,
+      },
     );
 
     this.addEnumArgument(
       "--scmType",
       ScmType,
       "Scm Type to use for the audit. Options: GitHub, Bitbucket.",
-      ScmType.GitHub,
+      {
+        defaultValue: ScmType.GitHub,
+      },
     );
   }
 
   override parseArguments<T extends OptionValues>(argv?: string[]) {
-    this.addBaseContributorArguments();
-
     const args = super.parseArguments(argv);
     switch (args.scmType) {
       case ScmType.GitHub:

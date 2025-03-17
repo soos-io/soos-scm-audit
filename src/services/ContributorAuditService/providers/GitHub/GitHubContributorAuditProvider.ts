@@ -53,14 +53,12 @@ class GitHubContributorAuditProvider implements IContributorAuditProvider {
   }
 
   public static addProviderArgs(argumentParser: ContributorAuditArgumentParser): void {
-    argumentParser.addRequiredArgument(
-      "--organizationName",
-      "Organization name to use for the audit.",
-    );
-    argumentParser.addRequiredArgument(
-      "--secret",
-      "Secret to use for api calls, it should be a GPAT.",
-    );
+    argumentParser.addArgument("--organizationName", "Organization name to use for the audit.", {
+      required: true,
+    });
+    argumentParser.addArgument("--secret", "Secret to use for api calls, it should be a GPAT.", {
+      required: true,
+    });
   }
 
   private async getGitHubRepositoryContributors(
