@@ -18,7 +18,7 @@ interface IHttpClientParameters extends IGitHubHttpRequestParameters {
 }
 
 // NOTE: GitHub related interfaces do not represent the full response from GitHub, only the fields we care about
-export interface GitHubOrganization {
+interface GitHubOrganization {
   login: string;
 }
 
@@ -31,13 +31,13 @@ export interface GitHubRepository {
   pushed_at: string;
 }
 
-export interface GitHubCommits {
+interface GitHubCommits {
   commit: {
     author: GitHubAuthor;
   };
 }
 
-export interface GitHubAuthor {
+interface GitHubAuthor {
   name: string;
   email: string;
   date: string;

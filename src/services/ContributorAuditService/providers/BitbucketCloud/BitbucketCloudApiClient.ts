@@ -20,7 +20,7 @@ interface IHttpClientParameters extends IBitbucketCloudHttpRequestParameters {
 }
 
 // NOTE: BitbucketCloud related interfaces do not represent the full response from BitbucketCloud, only the fields we care about
-export interface BitbucketRepositoryApiResponse {
+interface BitbucketRepositoryApiResponse {
   values: BitbucketCloudRepository[];
   next?: string;
 }
@@ -34,24 +34,24 @@ export interface BitbucketCloudRepository {
   workspace: BitbucketCloudWorkspace;
 }
 
-export interface BitbucketCloudWorkspace {
+interface BitbucketCloudWorkspace {
   type: string;
   uuid: string;
   name: string;
   slug: string;
 }
 
-export interface BitbucketCloudCommitsApiResponse {
+interface BitbucketCloudCommitsApiResponse {
   values: BitbucketCloudCommit[];
   next?: string;
 }
 
-export interface BitbucketCloudCommit {
+interface BitbucketCloudCommit {
   author: BitbucketCloudAuthor;
   date: string;
 }
 
-export interface BitbucketCloudAuthor {
+interface BitbucketCloudAuthor {
   raw: string;
   name: string;
   emailAddress: string;
