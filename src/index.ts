@@ -59,9 +59,7 @@ class SOOSContributorAudit {
     soosLogger.logLineSeparator();
     try {
       const contributorAuditArgumentParser = ContributorAuditArgumentParser.create();
-      const args = contributorAuditArgumentParser.parseArguments<IContributorAuditArguments>(
-        process.argv,
-      );
+      const args = contributorAuditArgumentParser.parseArguments<IContributorAuditArguments>();
       soosLogger.setMinLogLevel(args.logLevel);
       soosLogger.debug(
         JSON.stringify(
