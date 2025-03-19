@@ -55,12 +55,11 @@ class SOOSContributorAudit {
   }
 
   static async createAndRun(): Promise<void> {
-    soosLogger.info("Starting SOOS SCM Contributor Audit");
-    soosLogger.logLineSeparator();
     try {
       const contributorAuditArgumentParser = ContributorAuditArgumentParser.create();
       const args = contributorAuditArgumentParser.parseArguments<IContributorAuditArguments>();
       soosLogger.setMinLogLevel(args.logLevel);
+      soosLogger.info("Starting SOOS SCM Contributor Audit");
       soosLogger.debug(
         JSON.stringify(
           obfuscateProperties(args as unknown as Record<string, unknown>, ["apiKey", "secret"]),
