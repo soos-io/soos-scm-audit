@@ -1,27 +1,17 @@
 #!/usr/bin/env node
 import { version } from "../package.json";
-import {
-  IBitBucketContributorAuditArguments,
-  IGitHubContributorAuditArguments,
-  ScmType,
-  soosLogger,
-} from "@soos-io/api-client";
+import { soosLogger } from "@soos-io/api-client";
 import { exit } from "process";
 import { obfuscateProperties } from "@soos-io/api-client/dist/utilities";
-import ContributorAuditService from "@soos-io/api-client/dist/services/ContributorAuditService/ContributorAuditService";
 import ContributorAuditArgumentParser, {
   IContributorAuditArguments,
-} from "@soos-io/api-client/dist/services/ContributorAuditArgumentParser";
+} from "./services/ContributorAuditArgumentParser";
+import { IBitBucketContributorAuditArguments, IGitHubContributorAuditArguments } from "./services";
+import ContributorAuditService from "./services/ContributorAuditService/ContributorAuditService";
+import { ScmType } from "./enums";
 
-class SOOSSCMAudit {
+class SOOSContributorAudit {
   constructor(private args: IContributorAuditArguments) {}
-
-  static parseArgs(): IContributorAuditArguments {
-    const contributorAuditArgumentParser = ContributorAuditArgumentParser.create();
-
-    soosLogger.info("Parsing arguments");
-    return contributorAuditArgumentParser.parseArguments();
-  }
 
   async runAudit(): Promise<void> {
     const contributingDeveloperService = ContributorAuditService.create(
@@ -65,11 +55,11 @@ class SOOSSCMAudit {
   }
 
   static async createAndRun(): Promise<void> {
-    soosLogger.info("Starting SOOS SCM Contributor Audit");
-    soosLogger.logLineSeparator();
     try {
-      const args = this.parseArgs();
+      const contributorAuditArgumentParser = ContributorAuditArgumentParser.create();
+      const args = contributorAuditArgumentParser.parseArguments<IContributorAuditArguments>();
       soosLogger.setMinLogLevel(args.logLevel);
+      soosLogger.info("Starting SOOS SCM Contributor Audit");
       soosLogger.debug(
         JSON.stringify(
           obfuscateProperties(args as unknown as Record<string, unknown>, ["apiKey", "secret"]),
@@ -78,8 +68,8 @@ class SOOSSCMAudit {
         ),
       );
       soosLogger.logLineSeparator();
-      const soosSCMAudit = new SOOSSCMAudit(args);
-      await soosSCMAudit.runAudit();
+      const soosContributorAudit = new SOOSContributorAudit(args);
+      await soosContributorAudit.runAudit();
     } catch (error) {
       soosLogger.error(`Error on createAndRun: ${error}`);
       exit(1);
@@ -87,4 +77,4 @@ class SOOSSCMAudit {
   }
 }
 
-SOOSSCMAudit.createAndRun();
+SOOSContributorAudit.createAndRun();
