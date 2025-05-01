@@ -67,7 +67,7 @@ class SOOSContributorAudit {
           2,
         ),
       );
-      soosLogger.logLineSeparator();
+
       const soosContributorAudit = new SOOSContributorAudit(args);
       await soosContributorAudit.runAudit();
     } catch (error) {
