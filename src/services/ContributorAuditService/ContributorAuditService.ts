@@ -79,16 +79,12 @@ class ContributorAuditService {
   }
 
   private async saveResultsAsJSON(results: IContributorAuditModel) {
-    FileSystem.writeFileSync(
-      Path.join(process.cwd(), `${SOOS_SCM_AUDIT_CONSTANTS.Files.ContributorAuditResults}.json`),
-      JSON.stringify(results, null, 2),
+    const outputFile = Path.join(
+      process.cwd(),
+      `${SOOS_SCM_AUDIT_CONSTANTS.Files.ContributorAuditResults}.json`,
     );
-    soosLogger.info(
-      `Results saved successfully ${Path.join(
-        process.cwd(),
-        `${SOOS_SCM_AUDIT_CONSTANTS.Files.ContributorAuditResults}.json`,
-      )}`,
-    );
+    FileSystem.writeFileSync(outputFile, JSON.stringify(results, null, 2));
+    soosLogger.info(`Results saved successfully to ${outputFile}`);
   }
 
   private async saveResultsAsTXT(results: IContributorAuditModel) {
@@ -104,16 +100,12 @@ class ContributorAuditService {
           });
       });
 
-    FileSystem.writeFileSync(
-      Path.join(process.cwd(), `${SOOS_SCM_AUDIT_CONSTANTS.Files.ContributorAuditResults}.txt`),
-      output,
+    const outputFile = Path.join(
+      process.cwd(),
+      `${SOOS_SCM_AUDIT_CONSTANTS.Files.ContributorAuditResults}.txt`,
     );
-    soosLogger.info(
-      `Results saved successfully ${Path.join(
-        process.cwd(),
-        `${SOOS_SCM_AUDIT_CONSTANTS.Files.ContributorAuditResults}.txt`,
-      )}`,
-    );
+    FileSystem.writeFileSync(outputFile, output);
+    soosLogger.info(`Results saved successfully to ${outputFile}`);
   }
 
   private validateCommonParams(implementationParams: Record<string, string | number>) {
