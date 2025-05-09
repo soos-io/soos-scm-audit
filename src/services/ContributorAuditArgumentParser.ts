@@ -15,7 +15,7 @@ import { version } from "../../package.json";
 interface IContributorAuditArguments extends ICommonArguments {
   days: number;
   secret: string;
-  saveResults: ScmResultsFormat;
+  resultsFormat: ScmResultsFormat;
   scmType: ScmType;
 }
 
@@ -41,11 +41,16 @@ class ContributorAuditArgumentParser extends ArgumentParserBase {
       },
     });
 
-    this.addEnumArgument("saveResults", ScmResultsFormat, "Save results to file.", {
-      defaultValue: ScmResultsFormat.TXT,
-    });
+    this.addEnumArgument(
+      "resultsFormat",
+      ScmResultsFormat,
+      "Format of results file: JSON or TXT. Default is TXT.",
+      {
+        defaultValue: ScmResultsFormat.TXT,
+      },
+    );
 
-    this.addEnumArgument("scmType", ScmType, "Scm Type to use for the audit.", {
+    this.addEnumArgument("scmType", ScmType, "Scm Type to use for the audit. Default is GitHub.", {
       required: true,
       defaultValue: ScmType.GitHub,
     });

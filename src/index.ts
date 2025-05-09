@@ -51,7 +51,7 @@ class SOOSContributorAudit {
       contributingDevelopers,
     );
 
-    contributingDeveloperService.saveResults(contributingDevelopers, this.args.saveResults);
+    contributingDeveloperService.saveResults(contributingDevelopers, this.args.resultsFormat);
   }
 
   static async createAndRun(): Promise<void> {
@@ -71,7 +71,7 @@ class SOOSContributorAudit {
       const soosContributorAudit = new SOOSContributorAudit(args);
       await soosContributorAudit.runAudit();
     } catch (error) {
-      soosLogger.error(`Error on createAndRun: ${error}`);
+      soosLogger.error(error);
       exit(1);
     }
   }

@@ -107,6 +107,10 @@ class GitHubApiClient {
       },
       async (error) => {
         const { config, response } = error;
+        if (response?.status === 401) {
+          throw new Error("Unauthorized: Please check your GitHub PAT.");
+        }
+
         const maxRetries = 3;
         config.retryCount = config.retryCount || 0;
         // NOTE - You can get 403 or 249 https://docs.github.com/en/rest/using-the-rest-api/troubleshooting-the-rest-api?apiVersion=2022-11-28#rate-limit-errors

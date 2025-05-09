@@ -38,10 +38,10 @@ NOTE: you can find values for the `--apiKey` and `--clientId` at [app.soos.io](h
 
 | General Parameters     | Default | Description                                              |
 |------------------------|---------|----------------------------------------------------------|
-| --apiKey               |         | SOOS API Key - get yours from SOOS Integration. Uses SOOS_API_KEY env value if present. |
-| --clientId             |         | SOOS Client ID - get yours from SOOS Integration. Uses SOOS_API_CLIENT env value if present. |
+| --apiKey               |         | SOOS API Key - get yours from SOOS Integration. |
+| --clientId             |         | SOOS Client ID - get yours from SOOS Integration. |
 | --logLevel             |         | Minimum level to show logs: DEBUG, INFO, WARN, FAIL, ERROR. |
-| --saveResults          |         | Save results to file.                                    |
+| --resultsFormat        |         | Results format: TXT or JSON                                 |
 | --scmType              |         | Scm Type to use for the audit. Options: GitHub, BitBucketCloud          |
 
 | BitBucket Cloud Parameters | Default | Description                                              |
@@ -53,4 +53,4 @@ NOTE: you can find values for the `--apiKey` and `--clientId` at [app.soos.io](h
 | GitHub Parameters          | Default | Description                                              |
 |----------------------------|---------|----------------------------------------------------------|
 | --organizationName         |         | Organization name to run audit for GitHub.               |
-| --secret                   |         | Secret to use for API calls. It should be a GPAT            |
+| --secret                   |         | Secret to use for API calls. It should be a classic GPAT that has access to all repositories for the organization |

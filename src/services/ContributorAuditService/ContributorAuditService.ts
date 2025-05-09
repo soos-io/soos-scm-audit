@@ -61,9 +61,9 @@ class ContributorAuditService {
     soosLogger.info(`Results uploaded successfully.`);
   }
 
-  public async saveResults(results: IContributorAuditModel, format: ScmResultsFormat) {
-    soosLogger.info(`Saving results.`);
-    switch (format) {
+  public async saveResults(results: IContributorAuditModel, resultsFormat: ScmResultsFormat) {
+    soosLogger.info(`Saving results to ${resultsFormat} file.`);
+    switch (resultsFormat) {
       case ScmResultsFormat.JSON: {
         await this.saveResultsAsJSON(results);
         break;
@@ -73,42 +73,39 @@ class ContributorAuditService {
         break;
       }
       default: {
-        throw new Error(`Unsupported format: ${format}`);
+        throw new Error(`Unsupported format: ${resultsFormat}`);
       }
     }
   }
 
   private async saveResultsAsJSON(results: IContributorAuditModel) {
-    FileSystem.writeFileSync(
-      Path.join(process.cwd(), `${SOOS_SCM_AUDIT_CONSTANTS.Files.ContributorAuditResults}.json`),
-      JSON.stringify(results, null, 2),
+    const outputFile = Path.join(
+      process.cwd(),
+      `${SOOS_SCM_AUDIT_CONSTANTS.Files.ContributorAuditResults}.json`,
     );
-    soosLogger.info(
-      `Results saved successfully ${Path.join(
-        process.cwd(),
-        `${SOOS_SCM_AUDIT_CONSTANTS.Files.ContributorAuditResults}.json`,
-      )}`,
-    );
+    FileSystem.writeFileSync(outputFile, JSON.stringify(results, null, 2));
+    soosLogger.info(`Results saved successfully to ${outputFile}`);
   }
 
   private async saveResultsAsTXT(results: IContributorAuditModel) {
-    const uniqueContributors = new Set<string>();
+    let output = `soos-scm-audit ${results.metadata.scriptVersion} - ${results.metadata.days} days - ${results.organizationName} - ${new Date().toISOString()}\n\n`;
     results.contributors
       .sort((a, b) => a.username.localeCompare(b.username))
       .forEach((contributor) => {
-        uniqueContributors.add(contributor.username);
+        output += `${contributor.username} - ${contributor.repositories.length} repositories:\n`;
+        contributor.repositories
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .forEach((repository) => {
+            output += `  - ${repository.name} (${repository.id}), ${repository.lastCommit}\n`;
+          });
       });
 
-    FileSystem.writeFileSync(
-      Path.join(process.cwd(), `${SOOS_SCM_AUDIT_CONSTANTS.Files.ContributorAuditResults}.txt`),
-      Array.from(uniqueContributors).join("\n"),
+    const outputFile = Path.join(
+      process.cwd(),
+      `${SOOS_SCM_AUDIT_CONSTANTS.Files.ContributorAuditResults}.txt`,
     );
-    soosLogger.info(
-      `Results saved successfully ${Path.join(
-        process.cwd(),
-        `${SOOS_SCM_AUDIT_CONSTANTS.Files.ContributorAuditResults}.txt`,
-      )}`,
-    );
+    FileSystem.writeFileSync(outputFile, output);
+    soosLogger.info(`Results saved successfully to ${outputFile}`);
   }
 
   private validateCommonParams(implementationParams: Record<string, string | number>) {
