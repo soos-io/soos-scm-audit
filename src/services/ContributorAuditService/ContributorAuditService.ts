@@ -100,7 +100,7 @@ class ContributorAuditService {
         contributor.repositories
           .sort((a, b) => a.name.localeCompare(b.name))
           .forEach((repository) => {
-            output += `  - ${repository.name} (${repository.id}), Last Commit ${repository.lastCommit}\n`;
+            output += `  - ${repository.name} (${repository.id}), ${repository.lastCommit}\n`;
           });
       });
 
