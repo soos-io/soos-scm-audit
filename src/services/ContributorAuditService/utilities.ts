@@ -28,7 +28,6 @@ const DataMappingUtilities = {
     commitDate: string,
   ): IContributorAuditRepositories[] {
     const existingContributor = acc.find((contributor) => contributor.username === username);
-
     if (!existingContributor) {
       acc.push({ username, repositories: [repo] });
     } else {

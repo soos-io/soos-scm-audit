@@ -1,0 +1,35 @@
+soos-scm-audit 0.2.6 - PackageAware - 2025-05-09T14:53:57.060Z
+
+Josh Jennings - 7 repositories:
+  - automated-integration-tests (556755132), Last Commit 2025-02-25T21:03:32Z
+  - build-templates (325653658), Last Commit 2025-03-21T20:17:49Z
+  - consumer-app (325312017), Last Commit 2025-05-08T17:57:54Z
+  - infrastructure (337172089), Last Commit 2025-03-20T17:38:52Z
+  - PackageAware (325167394), Last Commit 2025-03-24T18:06:12Z
+  - PackageAware.Application (325893977), Last Commit 2025-04-30T13:41:13Z
+  - PackageAware.Processing (325311756), Last Commit 2025-05-05T17:21:03Z
+SOOS-FAngelino - 1 repositories:
+  - automated-integration-tests (556755132), Last Commit 2025-04-10T16:33:13Z
+SOOS-GSteen - 12 repositories:
+  - admin-app (390487163), Last Commit 2025-04-28T18:29:55Z
+  - automated-integration-tests (556755132), Last Commit 2025-05-09T14:06:07Z
+  - azure-external-identities (390488784), Last Commit 2025-03-31T19:32:31Z
+  - build-templates (325653658), Last Commit 2025-05-01T14:45:35Z
+  - consumer-app (325312017), Last Commit 2025-05-05T17:06:22Z
+  - infrastructure (337172089), Last Commit 2025-05-05T14:07:12Z
+  - PackageAware (325167394), Last Commit 2025-05-06T14:05:08Z
+  - PackageAware.Admin (392316722), Last Commit 2025-05-05T19:56:34Z
+  - PackageAware.Application (325893977), Last Commit 2025-05-08T13:03:36Z
+  - PackageAware.ConsumerApp (597138133), Last Commit 2025-05-02T14:34:51Z
+  - PackageAware.Processing (325311756), Last Commit 2025-05-06T15:31:37Z
+  - sitemaps (580855757), Last Commit 2025-03-31T19:32:24Z
+SOOS-JGomez - 1 repositories:
+  - automated-integration-tests (556755132), Last Commit 2025-05-09T13:30:02Z
+SOOS-MMalony - 7 repositories:
+  - admin-app (390487163), Last Commit 2025-03-31T20:01:29Z
+  - automated-integration-tests (556755132), Last Commit 2025-03-06T16:29:08Z
+  - consumer-app (325312017), Last Commit 2025-05-09T12:58:33Z
+  - infrastructure (337172089), Last Commit 2025-03-28T13:41:02Z
+  - PackageAware.Admin (392316722), Last Commit 2025-03-31T19:14:58Z
+  - PackageAware.Application (325893977), Last Commit 2025-04-16T13:53:51Z
+  - PackageAware.Processing (325311756), Last Commit 2025-05-06T13:58:33Z
