@@ -92,7 +92,7 @@ class ContributorAuditService {
   }
 
   private async saveResultsAsTXT(results: IContributorAuditModel) {
-    let output = `soos-scm-audit ${results.metadata.scriptVersion} - ${results.organizationName} - ${new Date().toISOString()}\n\n`;
+    let output = `soos-scm-audit ${results.metadata.scriptVersion} - ${results.metadata.days} days - ${results.organizationName} - ${new Date().toISOString()}\n\n`;
     results.contributors
       .sort((a, b) => a.username.localeCompare(b.username))
       .forEach((contributor) => {
