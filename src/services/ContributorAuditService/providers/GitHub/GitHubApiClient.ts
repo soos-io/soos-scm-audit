@@ -210,15 +210,14 @@ class GitHubApiClient {
     const contributors = commits.reduce<IContributorAuditRepositories[]>((acc, commit) => {
       const username = commit.commit.author.name;
       const commitDate = commit.commit.author.date;
-
       const repo: IContributorAuditRepository = {
         id: repository.id.toString(),
         name: repository.name,
         lastCommit: commitDate,
+        numberOfCommits: 1,
         isPrivate: repository.private,
       };
-
-      return DataMappingUtilities.updateContributors(acc, repo, username, commitDate);
+      return DataMappingUtilities.reduceContributors(acc, repo, username, commitDate);
     }, []);
 
     return contributors;

@@ -21,7 +21,7 @@ const ParamUtilities = {
 };
 
 const DataMappingUtilities = {
-  updateContributors(
+  reduceContributors(
     acc: IContributorAuditRepositories[],
     repo: IContributorAuditRepository,
     username: string,
@@ -34,8 +34,11 @@ const DataMappingUtilities = {
       const existingRepository = existingContributor.repositories.find((r) => r.id === repo.id);
       if (!existingRepository) {
         existingContributor.repositories.push(repo);
-      } else if (new Date(existingRepository.lastCommit) < new Date(commitDate)) {
-        existingRepository.lastCommit = commitDate;
+      } else {
+        existingRepository.numberOfCommits += 1;
+        if (new Date(existingRepository.lastCommit) < new Date(commitDate)) {
+          existingRepository.lastCommit = commitDate;
+        }
       }
     }
 
@@ -44,13 +47,10 @@ const DataMappingUtilities = {
   mergeContributors(
     contributorsArray: IContributorAuditRepositories[][],
   ): IContributorAuditRepositories[] {
-    const flattenedContributors = contributorsArray.flat();
-
     const mergedContributors = new Map<string, IContributorAuditRepositories>();
 
-    flattenedContributors.forEach((contributor) => {
+    contributorsArray.flat().forEach((contributor) => {
       const existingContributor = mergedContributors.get(contributor.username);
-
       if (existingContributor) {
         contributor.repositories.forEach((repository) => {
           if (!existingContributor.repositories.find((r) => r.id === repository.id)) {
