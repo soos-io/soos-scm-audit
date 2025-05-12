@@ -147,14 +147,15 @@ class BitbucketCloudApiClient {
 
     const contributors = commits.values.reduce<IContributorAuditRepositories[]>((acc, commit) => {
       const username = commit.author.user ? commit.author.user.display_name : "Unknown Author";
+      const commitDate = commit.date;
       const repo: IContributorAuditRepository = {
         id: repository.uuid,
         name: repository.name,
-        lastCommit: commit.date,
+        lastCommit: commitDate,
         numberOfCommits: 1,
         isPrivate: repository.is_private,
       };
-      return DataMappingUtilities.reduceContributors(acc, repo, username);
+      return DataMappingUtilities.reduceContributors(acc, repo, username, commitDate);
     }, []);
 
     return contributors;
