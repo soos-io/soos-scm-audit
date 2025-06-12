@@ -1,6 +1,6 @@
 {
   "name": "@soos-io/soos-scm-audit",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "SOOS SCM Audit CLI",
   "main": "bin/index.js",
   "scripts": {
