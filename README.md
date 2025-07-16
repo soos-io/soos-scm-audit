@@ -6,7 +6,7 @@ The SOOS SCM Audit script should be used to determine the number of contributing
 [![Out Of Date Dependencies](https://img.shields.io/endpoint?url=https%3A%2F%2Fapi-hooks.soos.io%2Fapi%2Fshieldsio-badges%3FbadgeType%3DOutOfDateDependencies%26pid%3Dzau3ko1vn%26branchName%3Dmain)](https://app.soos.io)
 
 ## Requirements
-  - [Node 20 LTS](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+  - [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
   
 ## Installation
 run `npm install --prefix ./soos @soos-io/soos-scm-audit`
