@@ -29,7 +29,7 @@ class SOOSContributorAudit {
         organizationName: githubArgs.organizationName,
         secret: this.args.secret,
       };
-    } else if (this.args.scmType === ScmType.BitbucketCloud) {
+    } else {
       const bitbucketCloudArgs = this.args as IBitBucketContributorAuditArguments;
       auditParams = {
         days: this.args.days,
@@ -38,9 +38,6 @@ class SOOSContributorAudit {
         username: bitbucketCloudArgs.username,
         workspace: bitbucketCloudArgs.workspace,
       };
-    } else {
-      soosLogger.error(`Unsupported SCM type: ${this.args.scmType}`);
-      exit(1);
     }
 
     soosLogger.info(`Running Contributing Developer audit for ${this.args.scmType}`);

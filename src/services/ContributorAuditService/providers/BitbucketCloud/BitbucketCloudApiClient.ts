@@ -146,7 +146,7 @@ class BitbucketCloudApiClient {
     const commits: BitbucketCloudCommitsApiResponse = response.data;
 
     const contributors = commits.values.reduce<IContributorAuditRepositories[]>((acc, commit) => {
-      const username = commit.author.user ? commit.author.user.display_name : "Unknown Author";
+      const username = commit.author.user.display_name;
       const commitDate = commit.date;
       const repo: IContributorAuditRepository = {
         id: repository.uuid,
