@@ -10,68 +10,58 @@ import { IBitBucketContributorAuditArguments, IGitHubContributorAuditArguments }
 import ContributorAuditService from "./services/ContributorAuditService/ContributorAuditService";
 import { ScmType } from "./enums";
 
-class SOOSContributorAudit {
-  constructor(private args: IContributorAuditArguments) {}
+const runAudit = async (args: IContributorAuditArguments): Promise<void> => {
+  const contributingDeveloperService = ContributorAuditService.create(
+    args.apiKey,
+    args.apiURL,
+    args.scmType,
+  );
+  let auditParams;
 
-  async runAudit(): Promise<void> {
-    const contributingDeveloperService = ContributorAuditService.create(
-      this.args.apiKey,
-      this.args.apiURL,
-      this.args.scmType,
-    );
-    let auditParams;
-
-    if (this.args.scmType === ScmType.GitHub) {
-      const githubArgs = this.args as IGitHubContributorAuditArguments;
-      auditParams = {
-        days: this.args.days,
-        scriptVersion: version,
-        organizationName: githubArgs.organizationName,
-        secret: this.args.secret,
-      };
-    } else {
-      const bitbucketCloudArgs = this.args as IBitBucketContributorAuditArguments;
-      auditParams = {
-        days: this.args.days,
-        scriptVersion: version,
-        secret: this.args.secret,
-        username: bitbucketCloudArgs.username,
-        workspace: bitbucketCloudArgs.workspace,
-      };
-    }
-
-    soosLogger.info(`Running Contributing Developer audit for ${this.args.scmType}`);
-    const contributingDevelopers = await contributingDeveloperService.audit(auditParams);
-
-    await contributingDeveloperService.uploadContributorAudits(
-      this.args.clientId,
-      contributingDevelopers,
-    );
-
-    contributingDeveloperService.saveResults(contributingDevelopers, this.args.resultsFormat);
+  if (args.scmType === ScmType.GitHub) {
+    const githubArgs = args as IGitHubContributorAuditArguments;
+    auditParams = {
+      days: args.days,
+      scriptVersion: version,
+      organizationName: githubArgs.organizationName,
+      secret: args.secret,
+    };
+  } else {
+    const bitbucketCloudArgs = args as IBitBucketContributorAuditArguments;
+    auditParams = {
+      days: args.days,
+      scriptVersion: version,
+      secret: args.secret,
+      username: bitbucketCloudArgs.username,
+      workspace: bitbucketCloudArgs.workspace,
+    };
   }
 
-  static async createAndRun(): Promise<void> {
-    try {
-      const contributorAuditArgumentParser = ContributorAuditArgumentParser.create();
-      const args = contributorAuditArgumentParser.parseArguments<IContributorAuditArguments>();
-      soosLogger.setMinLogLevel(args.logLevel);
-      soosLogger.always("Starting SOOS SCM Contributor Audit");
-      soosLogger.debug(
-        JSON.stringify(
-          obfuscateProperties(args as unknown as Record<string, unknown>, ["apiKey", "secret"]),
-          null,
-          2,
-        ),
-      );
+  soosLogger.info(`Running Contributing Developer audit for ${args.scmType}`);
+  const contributingDevelopers = await contributingDeveloperService.audit(auditParams);
 
-      const soosContributorAudit = new SOOSContributorAudit(args);
-      await soosContributorAudit.runAudit();
-    } catch (error) {
-      soosLogger.error(error);
-      exit(1);
-    }
+  await contributingDeveloperService.uploadContributorAudits(args.clientId, contributingDevelopers);
+
+  contributingDeveloperService.saveResults(contributingDevelopers, args.resultsFormat);
+};
+
+(async (): Promise<void> => {
+  try {
+    const contributorAuditArgumentParser = ContributorAuditArgumentParser.create();
+    const args = contributorAuditArgumentParser.parseArguments<IContributorAuditArguments>();
+    soosLogger.setMinLogLevel(args.logLevel);
+    soosLogger.always("Starting SOOS SCM Contributor Audit");
+    soosLogger.debug(
+      JSON.stringify(
+        obfuscateProperties(args as unknown as Record<string, unknown>, ["apiKey", "secret"]),
+        null,
+        2,
+      ),
+    );
+
+    await runAudit(args);
+  } catch (error) {
+    soosLogger.error(error);
+    exit(1);
   }
-}
-
-SOOSContributorAudit.createAndRun();
+})();
