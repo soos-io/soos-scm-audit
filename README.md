@@ -9,7 +9,7 @@ The SOOS SCM Audit script should be used to determine the number of contributing
   - [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
   
 ## Installation
-run `npm install --prefix ./soos @soos-io/soos-scm-audit`
+run `npm install --ignore-scripts --prefix ./soos @soos-io/soos-scm-audit`
 
 ## Configure and Run the Script
 NOTE: you can find values for the `--apiKey` and `--clientId` at [app.soos.io](https://app.soos.io/integrate).

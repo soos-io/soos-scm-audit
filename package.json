@@ -1,10 +1,10 @@
 {
   "name": "@soos-io/soos-scm-audit",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "SOOS SCM Audit CLI",
   "main": "bin/index.js",
   "scripts": {
-    "setup:install": "npm install",
+    "setup:install": "npm install --ignore-scripts",
     "setup:clean-install": "npm ci",
     "setup:update": "npx npm-check -u",
     "setup:clean": "npx rimraf node_modules && npx rimraf package-lock.json",
@@ -17,7 +17,7 @@
     "typecheck": "tsc --noEmit",
     "check": "npm run format && npm run lint && npm run typecheck && (npm outdated || exit 0)",
     "patch": "npm version patch --no-git-tag-version",
-    "patch-api-client": "npm run patch && npm run setup:clean && npm install @soos-io/api-client@latest --save-exact && npm install && npm run check",
+    "patch-api-client": "npm run patch && npm run setup:clean && npm install @soos-io/api-client@latest --save-exact && npm install --ignore-scripts && npm run check",
     "link:local": "npm link @soos-io/api-client && npm run build && npm link",
     "knip": "knip"
   },
@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/soos-io/soos-scm-audit#readme",
   "dependencies": {
-    "@soos-io/api-client": "1.10.4",
+    "@soos-io/api-client": "1.10.5",
     "axios": "^1.8.3",
     "tslib": "^2.6.2"
   },
@@ -40,13 +40,13 @@
     "minimatch": "^10.2.4"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.3",
-    "@types/node": "^24.11.0",
-    "eslint": "^9.39.3",
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.5.2",
+    "eslint": "^10.2.0",
     "globals": "^17.4.0",
-    "knip": "^5.85.0",
+    "knip": "^6.3.0",
     "prettier": "^3.2.5",
-    "typescript": "^5.8.3",
+    "typescript": "^6.0.2",
     "typescript-eslint": "^8.56.1"
   },
   "bin": {
